@@ -15,6 +15,8 @@ public class FinalCalc extends JFrame {
     JTextField finalWeight=new JTextField();
     JLabel gradeWantedLabel=new JLabel("Final Weight: ");
     JTextField gradeWanted=new JTextField();
+    JTextField result=new JTextField();
+    JLabel resultLabel=new JLabel("Grade Needed:");
     JTextField term1=new JTextField();
     JLabel term1Label=new JLabel("Term 1:");
     JTextField term2=new JTextField();
@@ -39,17 +41,21 @@ public class FinalCalc extends JFrame {
         termList.setSelectedIndex(0);
         terms=new ArrayList<JTextField>(Arrays.asList(term1,term2,term3,term4,term5));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400,600);
+        setSize(400,650);
         setLayout(null);
         setVisible(true);
 
         totalWeightLabel.setFont(font);
+        totalWeight.setFont(font);
         totalWeightLabel.setBounds(0,20,200,40);
         totalWeight.setBounds(200,20,150,40);
 
         finalWeightLabel.setFont(font);
+        finalWeight.setFont(font);
         noOfTerms.setFont(font);
+        termList.setFont(font);
         gradeWantedLabel.setFont(font);
+        gradeWanted.setFont(font);
         finalWeightLabel.setBounds(0,70,200,40);
         finalWeight.setBounds(200,70,150,40);
         termList.setBounds(200, 120, 150,40);
@@ -62,10 +68,15 @@ public class FinalCalc extends JFrame {
         term4.setBounds(200,350,150,30);
         term5.setBounds(200,390,150,30);
         term1Label.setFont(font);
+        term1.setFont(font);
         term2Label.setFont(font);
+        term2.setFont(font);
         term3Label.setFont(font);
+        term3.setFont(font);
         term4Label.setFont(font);
+        term4.setFont(font);
         term5Label.setFont(font);
+        term5.setFont(font);
         term1Label.setBounds(125,225,200,40);
         term2Label.setBounds(125,265,200,40);
         term3Label.setBounds(125,305,200,40);
@@ -76,7 +87,10 @@ public class FinalCalc extends JFrame {
 
         calculate.setBounds(25,450,335,40);
         clear.setBounds(25,500,335,40);
+        result.setBounds(205,550,130,40);
+        resultLabel.setBounds(75,550,75,40);
 
+        resultLabel.setFont(font);
         calculate.addActionListener(e -> process(e));
         clear.addActionListener(e -> process(e));
         termList.addActionListener(e -> process(e));
@@ -108,6 +122,8 @@ public class FinalCalc extends JFrame {
         add(term5Label);
         add(calculate);
         add(clear);
+        add(result);
+        add(resultLabel);
 
     }
 
@@ -136,12 +152,15 @@ public class FinalCalc extends JFrame {
 
 
         if(e.getActionCommand().equals("Calculate")) {
+            if(textFilterer(term1.getText())==null||textFilterer(term2.getText())==null||
+                    textFilterer(term3.getText())==null){
 
+            }
         }
     }
     public Double textFilterer(String s) {
         for(int x=0;x<ALPHA.length();x++) {
-            if(s.equals(ALPHA.charAt(x))) {
+            if(s.equals(ALPHA.charAt(x)+"")) {
                 return null;
             }
         }
