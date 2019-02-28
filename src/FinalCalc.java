@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+//TODO: Make sure two decimal place, check combo box, String check. GOOD LUCK MAN
 public class FinalCalc extends JFrame {
     String acceptedChars="1 2 3 4 5 6 7 8 9 0";
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
