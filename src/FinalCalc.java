@@ -9,11 +9,12 @@ public class FinalCalc extends JFrame {
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     String[] accepChar=acceptedChars.split(" ");
     ArrayList<JTextField> terms;
+    ArrayList<JLabel> labels;
     JLabel totalWeightLabel=new JLabel("Total Term Weight: ");
     JTextField totalWeight=new JTextField();
     JLabel finalWeightLabel=new JLabel("Final Weight: ");
     JTextField finalWeight=new JTextField();
-    JLabel gradeWantedLabel=new JLabel("Final Weight: ");
+    JLabel gradeWantedLabel=new JLabel("Grade Wanted: ");
     JTextField gradeWanted=new JTextField();
     JTextField result=new JTextField();
     JLabel resultLabel=new JLabel("Grade Needed:");
@@ -40,6 +41,7 @@ public class FinalCalc extends JFrame {
         termList=new JComboBox(termNos);
         termList.setSelectedIndex(0);
         terms=new ArrayList<JTextField>(Arrays.asList(term1,term2,term3,term4,term5));
+        labels=new ArrayList<JLabel>(Arrays.asList(term1Label,term2Label,term3Label,term4Label,term5Label));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,650);
         setLayout(null);
@@ -88,7 +90,8 @@ public class FinalCalc extends JFrame {
         calculate.setBounds(25,450,335,40);
         clear.setBounds(25,500,335,40);
         result.setBounds(205,550,130,40);
-        resultLabel.setBounds(75,550,75,40);
+        resultLabel.setBounds(50,550,150,40);
+        result.setEditable(false);
 
         resultLabel.setFont(font);
         calculate.addActionListener(e -> process(e));
@@ -124,6 +127,19 @@ public class FinalCalc extends JFrame {
         add(clear);
         add(result);
         add(resultLabel);
+        result.setFont(font);
+        try {
+            for (int x = (Integer) termList.getSelectedItem(); x < 5; x++) {
+                terms.get(x).setText("");
+                terms.get(x).setEditable(false);
+                labels.get(x).setForeground(Color.GRAY);
+            }
+            for (int x = (Integer) termList.getSelectedItem()-1; x >=0; x--) {
+                terms.get(x).setEditable(true);
+
+                labels.get(x).setForeground(Color.BLACK);
+            }
+        }catch (Exception y) {y.printStackTrace();}
 
     }
 
@@ -133,9 +149,12 @@ public class FinalCalc extends JFrame {
             for (int x = (Integer) termList.getSelectedItem(); x < 5; x++) {
                 terms.get(x).setText("");
                 terms.get(x).setEditable(false);
+                labels.get(x).setForeground(Color.GRAY);
             }
             for (int x = (Integer) termList.getSelectedItem()-1; x >=0; x--) {
                 terms.get(x).setEditable(true);
+
+                labels.get(x).setForeground(Color.BLACK);
             }
         }catch (Exception y) {y.printStackTrace();}
         if(e.getActionCommand().equals("Clear")) {
@@ -151,20 +170,44 @@ public class FinalCalc extends JFrame {
         }
 
 
-        if(e.getActionCommand().equals("Calculate")) {
-            if(textFilterer(term1.getText())==null||textFilterer(term2.getText())==null||
-                    textFilterer(term3.getText())==null){
-
+        if(e.getActionCommand().equals(calculate.getText())) {
+            System.out.println("HEY I SHOUDL BE ACT");
+            /*if(textFilterer(term1.getText())==null||textFilterer(term2.getText())==null||
+                    textFilterer(term3.getText())==null||textFilterer(term4.getText())==null||
+                    textFilterer(term5.getText())==null||textFilterer(gradeWanted.getText())==null
+                            ||textFilterer(totalWeight.getText())==null||textFilterer(finalWeight.getText())==null){
+                result.setText("ERROR");
+            }*/
+            double termAverage=0.0;
+            for(int x=0;x<termList.getSelectedIndex()+1;x++) {
+                System.out.println("IM SO DONE");
+                if(textFilterer(terms.get(x).getText())==null||textFilterer(gradeWanted.getText())==null
+                        ||textFilterer(totalWeight.getText())==null||textFilterer(finalWeight.getText())==null) {
+                    result.setText("ERROR");
+                    return;
+                }
+                else {
+                    termAverage+=Double.parseDouble(terms.get(termList.getSelectedIndex()).getText());
+                }
             }
+            termAverage/=(termList.getSelectedIndex()+1);
+            double d=Double.parseDouble(gradeWanted.getText())-(termAverage*(Double.parseDouble(totalWeight.getText())/100));
+            double finalthing=d/Double.parseDouble(finalWeight.getText()+"")*100;
+            result.setText(String.format( "%.2f", finalthing ));
         }
     }
     public Double textFilterer(String s) {
+        if(s.equals("")) {
+            return null;
+        }
         for(int x=0;x<ALPHA.length();x++) {
-            if(s.equals(ALPHA.charAt(x)+"")) {
-                return null;
+            for(int y=0;y<s.length();y++) {
+                if ((s.charAt(y) + "").equals(ALPHA.charAt(x) + "")) {
+                    return null;
+                }
             }
         }
-        if(!(s==null)) {
+        if(!(s.equals(null))) {
             if (!s.equals("")) {
                 return Double.parseDouble(s);
             }
