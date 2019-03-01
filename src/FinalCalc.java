@@ -162,11 +162,11 @@ public class FinalCalc extends JFrame {
             term2.setText("");
             term3.setText("");
             term4.setText("");
-            term5.setText("");
+            term5.setText("");/*
             finalWeight.setText("");
             totalWeight.setText("");
             gradeWanted.setText("");
-            termList.setSelectedIndex(0);
+            termList.setSelectedIndex(0);*/
         }
 
 
@@ -187,12 +187,12 @@ public class FinalCalc extends JFrame {
                     return;
                 }
                 else {
-                    termAverage+=Double.parseDouble(terms.get(termList.getSelectedIndex()).getText());
+                    termAverage+=Double.parseDouble(terms.get(/*termList.getSelectedIndex()*/x).getText());
                 }
             }
             termAverage/=(termList.getSelectedIndex()+1);
             double d=Double.parseDouble(gradeWanted.getText())-(termAverage*(Double.parseDouble(totalWeight.getText())/100));
-            double finalthing=d/Double.parseDouble(finalWeight.getText()+"")*100;
+            double finalthing=(d/Double.parseDouble(finalWeight.getText()+""))*100;
             result.setText(String.format( "%.2f", finalthing ));
         }
     }
